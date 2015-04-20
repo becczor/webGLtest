@@ -22,7 +22,7 @@
 				requestAnimationFrame( render );
 
 				//ground.rotation.x += 0.01;
-				//ground.rotation.z += 0.01;
+				ground.rotation.z += 0.01;
 
 				renderer.render(scene, camera);
 			};
@@ -38,15 +38,16 @@
 
 			var planeTex = THREE.ImageUtils.loadTexture("textures/sara.jpg");
 			planeTex.wrapS = planeTex.wrapT = THREE.RepeatWrapping;
-			planeTex.repeat.set( 2, 2 );
+			planeTex.repeat.set( 4, 4 );
 			var planeMat = new THREE.MeshBasicMaterial( { map: planeTex } );
 
 
 
-			geometry = new THREE.PlaneGeometry( 2, 2 );
+			geometry = new THREE.PlaneGeometry( 4, 4 );
 
 			var material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide}  );
 
+			// CHANGE MATERIAL TO PLANEMAT WHEN PUSHING TO GITHUB
 			ground = new THREE.Mesh( geometry, planeMat );
 
 			//ground.position.set( 0, -10, 0 );
@@ -58,7 +59,7 @@
 			ground.rotation.x += 3.14159/2;
 
 			camera.position.z = 0.5;
-			camera.position.y = -0.5;
+			camera.position.y = 1;
 
 
 			render();
