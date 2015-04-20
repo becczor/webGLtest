@@ -9,7 +9,7 @@
 	<body>
 
 
-		<img src="textures/sara.jpg"></img>
+		<!--<img src="textures/sara.jpg"></img>-->
 
 		
 
@@ -36,9 +36,9 @@
 			renderer.setClearColor( 0xffffff, 1);
 			document.body.appendChild( renderer.domElement );
 
-			var planeTex = THREE.ImageUtils.loadTexture("textures/checkerboard.jpg");
+			var planeTex = THREE.ImageUtils.loadTexture("textures/sara.jpg");
 			planeTex.wrapS = planeTex.wrapT = THREE.RepeatWrapping;
-			planeTex.repeat.set( 1, 1 );
+			planeTex.repeat.set( 2, 2 );
 			var planeMat = new THREE.MeshBasicMaterial( { map: planeTex } );
 
 
