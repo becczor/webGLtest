@@ -1,20 +1,20 @@
 <html>
 	<head>
-		<title>Original.html</title>
+		<title>test4.html</title>
 		<style>
 			body { margin: 0; }
 			canvas { width: 100%; height: 100% }
 		</style>
 	</head>
 	<body>
-		<script src="three.min.js"></script>
+      <script src="three.min.js"></script>
 		<script>
 
 			var render = function () {
 				requestAnimationFrame( render );
 
-				//plane.rotation.x += 0.01;
-				plane.rotation.y += 0.01;
+              plane.rotation.x += 0.01;
+              plane.rotation.y += 0.01;
 
 				renderer.render(scene, camera);
 			};
@@ -26,24 +26,25 @@
 			renderer.setSize( window.innerWidth, window.innerHeight );
 			document.body.appendChild( renderer.domElement );
 
-			/*
-			var texture = THREE.ImageUtils.loadTexture( "textures/sara.jpg" );
-			texture.wrapS = THREE.RepeatWrapping;
-			texture.wrapT = THREE.RepeatWrapping;
-			texture.repeat.set( 4, 4 );
-			*/
+
+			var planeTex = THREE.ImageUtils.loadTexture("http://www.html5canvastutorials.com/wp-content/themes/webkrunk/img/html5-canvas-cheat-sheet.png");
+			planeTex.wrapS = planeTex.wrapT = THREE.RepeatWrapping;
+          //planeTex.repeat.set( );
+			var planeMat = new THREE.MeshBasicMaterial( { map: planeTex, side: THREE.DoubleSide } );
+			
 
 
 			var geometry = new THREE.PlaneGeometry( 4, 5 );
 			var material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide}  );
-			//var material = new THREE.MeshLambertMaterial( {map: texture, side: THREE.DoubleSide}  );
-			var plane = new THREE.Mesh( geometry, material );
+			
+        
+			var plane = new THREE.Mesh( geometry, planeMat );
 			scene.add( plane );
 
-			plane.rotation.x += 3.14159/2;
+          	plane.rotation.x += 3.14159/2;
 
-			camera.position.z = 0.5;
-			camera.position.y = 1;
+          camera.position.z = 3;
+          camera.position.y = 3;
 
 
 
@@ -51,3 +52,4 @@
 		</script>
 	</body>
 </html>
+    
