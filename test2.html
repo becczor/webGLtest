@@ -38,7 +38,7 @@
 
 			var planeTex = THREE.ImageUtils.loadTexture("textures/sara.jpg");
 			planeTex.wrapS = planeTex.wrapT = THREE.RepeatWrapping;
-			planeTex.repeat.set( 2, 2 );
+			planeTex.repeat.set( 4, 4 );
 			var planeMat = new THREE.MeshBasicMaterial( { map: planeTex } );
 
 
@@ -59,7 +59,7 @@
 			ground.rotation.x += 3.14159/2;
 
 			camera.position.z = 0.5;
-			camera.position.y = -0.5;
+			camera.position.y = 0.5;
 
 
 			render();
