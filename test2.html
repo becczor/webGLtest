@@ -37,7 +37,7 @@
 			document.body.appendChild( renderer.domElement );
 
 			var planeTex = THREE.ImageUtils.loadTexture("textures/sara.jpg");
-			planeTex.wrapS = planeTex.wrapT = THREE.RepeatWrapping;
+			//planeTex.wrapS = planeTex.wrapT = THREE.RepeatWrapping;
 			planeTex.repeat.set( 4, 4 );
 			var planeMat = new THREE.MeshBasicMaterial( { map: planeTex } );
 
