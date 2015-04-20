@@ -45,7 +45,7 @@
 
 			geometry = new THREE.PlaneGeometry( 2, 2 );
 
-			var material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide}  );
+			var material = new THREE.MeshBasicMaterial( {color: 0xffff00}  );
 
 			// CHANGE MATERIAL TO PLANEMAT WHEN PUSHING TO GITHUB
 			ground = new THREE.Mesh( geometry, planeMat );
@@ -53,7 +53,7 @@
 			//ground.position.set( 0, -10, 0 );
 			//ground.rotation.x = Math.PI/2;
 			//ground.scale.set( 10, 10, 10 );
-			//ground.doubleSided = true;
+			ground.doubleSided = true;
 			scene.add( ground );
 
 			ground.rotation.x += 3.14159/2;
