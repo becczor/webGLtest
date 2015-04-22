@@ -60,11 +60,19 @@
 
 			var w = 2, h = 2;
 
+			// first texture
 			var planeTex = THREE.ImageUtils.loadTexture("textures/boppi.jpg");
 			planeTex.wrapS = planeTex.wrapT = THREE.RepeatWrapping;
 			planeTex.repeat.set( 1, 1 );
 			var planeMat = new THREE.MeshBasicMaterial( { map: planeTex } );
 			planeMat.side = THREE.DoubleSide;
+
+			// back texture
+			var planeTex2 = THREE.ImageUtils.loadTexture("textures/boppi2.jpg");
+			planeTex2.wrapS = planeTex2.wrapT = THREE.RepeatWrapping;
+			planeTex2.repeat.set( 1, 1 );
+			var planeMat2 = new THREE.MeshBasicMaterial( { map: planeTex2 } );
+			planeMat2.side = THREE.DoubleSide;
 
 
 
@@ -77,7 +85,7 @@
 			// CHANGE MATERIAL TO PLANEMAT WHEN PUSHING TO GITHUB
 			ground1 = new THREE.Mesh( geometry, planeMat );
 
-			ground2 = new THREE.Mesh( geometry2, planeMat );
+			ground2 = new THREE.Mesh( geometry2, planeMat2 );
 
 			//ground.position.set( 0, -10, 0 );
 			//ground.rotation.x = Math.PI/2;
