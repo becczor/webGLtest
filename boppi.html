@@ -24,7 +24,7 @@
 				requestAnimationFrame( render );
 
 				//ground.rotation.x += 0.01;
-				ground.rotation.z += 0.01;
+				ground1.rotation.z += 0.01;
 
 				//updatePosition(camera.position);
 
@@ -69,24 +69,30 @@
 
 
 			geometry = new THREE.PlaneGeometry( w, h );
+			geometry2 = new THREE.PlaneGeometry( w*2, h*2 );
 
 			var material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide}  );
 
 			// CHANGE MATERIAL TO PLANEMAT WHEN PUSHING TO GITHUB
-			ground = new THREE.Mesh( geometry, material );
+			ground1 = new THREE.Mesh( geometry, planeMat );
+
+			ground2 = new THREE.Mesh( geometry2, planeTex );
 
 			//ground.position.set( 0, -10, 0 );
 			//ground.rotation.x = Math.PI/2;
 			//ground.scale.set( 10, 10, 10 );
-			scene.add( ground );
+			scene.add( ground1 );
+			scene.add( ground2 );
 
-			ground.rotation.x += 3.14159/2;
+			ground2.position.z = -1;
+
+			//ground.rotation.x += 3.14159/2;
 
 			// z is depth
 			// y is height
 			// x is left/right
-			camera.position.z = 3;
-			camera.position.y = +1;
+			camera.position.z = 2;
+			//camera.position.y = +1;
 
 
 			render();
