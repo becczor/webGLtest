@@ -55,7 +55,7 @@
 			var renderer = new THREE.WebGLRenderer();
 			renderer.setSize( window.innerWidth, window.innerHeight );
 			// change background color of renderer
-			//renderer.setClearColor( 0xffffff, 1);
+			renderer.setClearColor( 0xffffff, 1);
 			document.body.appendChild( renderer.domElement );
 
 			var w = 2, h = 2;
@@ -72,11 +72,12 @@
 			geometry2 = new THREE.PlaneGeometry( w*2, h*2 );
 
 			var material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide}  );
+			var material2 = new THREE.MeshBasicMaterial( {color: 0xff0000, side: THREE.DoubleSide}  );
 
 			// CHANGE MATERIAL TO PLANEMAT WHEN PUSHING TO GITHUB
 			ground1 = new THREE.Mesh( geometry, material );
 
-			ground2 = new THREE.Mesh( geometry2, material );
+			ground2 = new THREE.Mesh( geometry2, material2 );
 
 			//ground.position.set( 0, -10, 0 );
 			//ground.rotation.x = Math.PI/2;
