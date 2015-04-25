@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 	<head>
-		<title>kristin.html</title>
+		<title>Copykristin</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<style>
@@ -38,7 +38,7 @@
 			//create camera
 			camera = new THREE.PerspectiveCamera( 60, window.innerWidth/window.innerHeight, 0.1, 1000 );
 			
-			camera.position.set(0,0,100);
+			camera.position.set(0,2,0);
 			
 			//contructs an empty object and sets controls to it
 			//var dummy = new THREE.Object3D();
@@ -74,42 +74,55 @@
 			
 			
 			
-			//world
+			//---------world-------------
 			
-			//create scene
+			//--------create scene----------
 			scene = new THREE.Scene();
 			scene.fog = new THREE.FogExp2( 0x000000, 0.002 ); //sets start position in scene, defines exponential fog, ie. grows exponentially denser with the distance
 			
-			var geometry = new THREE.BoxGeometry( 10, 10, 10 );
-			var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 			
-			
-			//var cube = new THREE.Mesh( geometry, material );
-			
-			for ( var i = 0; i < 500; i ++ ) {
+			// -----------plane with/without texture---------------
+			var w = 2, h = 2;
 
-				var mesh = new THREE.Mesh( geometry, material );
-				mesh.position.x = ( Math.random() - 0.5 ) * 1000;
-				mesh.position.y = ( Math.random() - 0.5 ) * 1000;
-				mesh.position.z = ( Math.random() - 0.5 ) * 1000;
-				mesh.updateMatrix();
-				mesh.matrixAutoUpdate = false;
-				scene.add( mesh );
-				
+			
+			// load texture file
+			var planeTex = THREE.ImageUtils.loadTexture("textures/sara.jpg");
+			// set repeating image all over the object
+			planeTex.wrapS = planeTex.wrapT = THREE.RepeatWrapping;
+			// set how small the image should be, how many times it should repeat
+			planeTex.repeat.set( 4, 4 );
+			// create a material with our texture to add on the object
+			var planeMat = new THREE.MeshBasicMaterial( { map: planeTex } );
+			// make sure the texture is applied to both sides
+			planeMat.side = THREE.DoubleSide;
 
-			}
+
+			// create first plane
+			geometry = new THREE.PlaneGeometry( w, h );
+			geometry2 = new THREE.PlaneGeometry( 5*w, 5*h );
+			// (extra material for trying on computer since texture files won't work)
+			var material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide}  );
+			var material2 = new THREE.MeshBasicMaterial( {color: 0xff0000, side: THREE.DoubleSide} );
+
+			// CHANGE MATERIAL TO PLANEMAT WHEN PUSHING TO GITHUB
+			// create the actual object with correct geometry and material
+			ground = new THREE.Mesh( geometry, material );
+			extra = new THREE.Mesh ( geometry2, material2 );
+
+			//ground.position.set( 0, -10, 0 );
+			//ground.rotation.x = Math.PI/2;
+			//ground.scale.set( 10, 10, 10 );
+			scene.add( ground );
+			scene.add( extra );
+			console.log("hej1")
+
+			ground.rotation.x += 3.14159/2;
+			extra.rotation.x += 3.14159/2;
+
+			extra.position.y = -10;
 			
-			//add the objects to the scene
-			                //scene.add(camera);
-			//scene.add(dummy);
-			//dummy.add(camera);
-			//scene.add(cube);
-			
-			
-			
-			
-			//lights
-			light = new THREE.DirectionalLight( 0xffffff );
+			//-------------lights -------------
+			/*light = new THREE.DirectionalLight( 0xffffff );
 			light.position.set( 1, 1, 1 );
 			scene.add( light );
 
@@ -119,7 +132,7 @@
 			
 			light = new THREE.AmbientLight( 0x222222 );
 			scene.add( light );
-			
+			*/
 
 			
 			//renderer
@@ -165,9 +178,30 @@
 		}
 		
 		function render() {
-				renderer.render(scene, camera);
-				stats.update();
+			// update position to make texture of plane look like moving. 
+			updatePosition(camera.position);
+			renderer.render(scene, camera);
+			stats.update();
 		}
+
+		// function for updating position and make texture look like you're moving
+		// https://github.com/tapio/jetpursuit/blob/a78a4efd6ce5ea4f2cd41b74c23b1e803fa22095/js/world.js#L70-L73
+		/* 
+		I have an infinite ocean floor in my top-down game. I reposition it to the camera's xy-coordinates (keeping a distance with z). 
+		I then modify the texture's offset property so that it appears the floor is moving even though it's glued to the camera.
+		*/
+		
+		function updatePosition(position) 
+		{
+			// Infinite plane
+			console.log("hej");
+			ground.position.x = position.x;
+			ground.position.z = position.z;
+			//ground.position.y = position.y -2;
+			// Note that the plane is created with (x,y)-coordinates, but we want to change (x,z) position 
+			// since the plane is rotated pi/2. 
+			//planeTex.offset.set(position.x / w * planeTex.repeat.x, position.z / h * planeTex.repeat.y);
+		};
 		
 
 
