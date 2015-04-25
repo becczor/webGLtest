@@ -145,21 +145,25 @@
 			var axisHelper = new THREE.AxisHelper( 50 );
 			scene.add( axisHelper );
 
-			// adding skybox
+			// skybox
 			// view-source:http://stemkoski.github.io/Three.js/Skybox.html
 			var imagePrefix = "images/dawnmountain-";
 			var directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
 			var imageSuffix = ".png";
-			var skyGeometry = new THREE.CubeGeometry( 5000, 5000, 5000 );	
+			var skyGeometry = new THREE.CubeGeometry( 500, 500, 500 );	
 			
+			// REMOVE FOR TESTING WITHOUT TEXTURES
 			var materialArray = [];
 			for (var i = 0; i < 6; i++)
 				materialArray.push( new THREE.MeshBasicMaterial({
 					map: THREE.ImageUtils.loadTexture( imagePrefix + directions[i] + imageSuffix ),
-					//side: THREE.BackSide
+					side: THREE.BackSide
 				}));
 			var skyMaterial = new THREE.MeshFaceMaterial( materialArray );
-			var skyBox = new THREE.Mesh( skyGeometry, skyMaterial );
+			// TO HERE
+
+			//var himmelmaterial = new THREE.MeshBasicMaterial( { color: 0x00ff00, side: THREE.BackSide } );
+			var skyBox = new THREE.Mesh( skyGeometry, himmelmaterial );
 			scene.add( skyBox );
 			
 			//-------------lights -------------
