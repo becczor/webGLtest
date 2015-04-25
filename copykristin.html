@@ -32,9 +32,8 @@
 			init();
 			animate();
 		
-		function init(){
-			
-			
+		function init()
+		{	
 			//create camera
 			camera = new THREE.PerspectiveCamera( 60, window.innerWidth/window.innerHeight, 0.1, 1000 );
 			
@@ -99,7 +98,7 @@
 
 			// create first plane
 			geometry = new THREE.PlaneGeometry( w, h );
-			geometry2 = new THREE.PlaneGeometry( 5*w, 5*h );
+			geometry2 = new THREE.PlaneGeometry( 20*w, 20*h );
 			// (extra material for trying on computer since texture files won't work)
 			var material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide}  );
 			var material2 = new THREE.MeshBasicMaterial( {color: 0xff0000, side: THREE.DoubleSide} );
@@ -107,7 +106,7 @@
 			// CHANGE MATERIAL TO PLANEMAT WHEN PUSHING TO GITHUB
 			// create the actual object with correct geometry and material
 			ground = new THREE.Mesh( geometry, material );
-			extra = new THREE.Mesh ( geometry2, material2 );
+			extra = new THREE.Mesh ( geometry2, planeMat );
 
 			//ground.position.set( 0, -10, 0 );
 			//ground.rotation.x = Math.PI/2;
@@ -205,8 +204,8 @@
 			
 		}
 		
-		function onWindowResize() {
-			
+		function onWindowResize() 
+		{
 			camera.aspect = window.innerWidth / window.innerHeight;
 			camera.updateProjectionMatrix();
 
@@ -217,12 +216,14 @@
 			render();
 		}
 		
-		function animate() {
+		function animate() 
+		{
 			requestAnimationFrame( animate );
 			controls.update();
 		}
 		
-		function render() {
+		function render() 
+		{
 			// update position to make texture of plane look like moving. 
 			updatePosition(camera.position);
 			renderer.render(scene, camera);
