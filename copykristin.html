@@ -38,7 +38,7 @@
 			//create camera
 			camera = new THREE.PerspectiveCamera( 60, window.innerWidth/window.innerHeight, 0.1, 1000 );
 			
-			camera.position.set(0,2,0);
+			camera.position.set(0,0,100);
 			
 			//contructs an empty object and sets controls to it
 			//var dummy = new THREE.Object3D();
@@ -78,7 +78,7 @@
 			
 			//--------create scene----------
 			scene = new THREE.Scene();
-			scene.fog = new THREE.FogExp2( 0x000000, 0.002 ); //sets start position in scene, defines exponential fog, ie. grows exponentially denser with the distance
+			//scene.fog = new THREE.FogExp2( 0x000000, 0.002 ); //sets start position in scene, defines exponential fog, ie. grows exponentially denser with the distance
 			
 			
 			// -----------plane with/without texture---------------
@@ -116,10 +116,51 @@
 			scene.add( extra );
 			console.log("hej1")
 
-			ground.rotation.x += 3.14159/2;
+			//ground.rotation.x += 3.14159/2;
 			extra.rotation.x += 3.14159/2;
 
 			extra.position.y = -10;
+
+			// Kristins boxes
+			/*var geometry = new THREE.BoxGeometry( 10, 10, 10 );
+			var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+			
+			
+			//var cube = new THREE.Mesh( geometry, material );
+			
+			for ( var i = 0; i < 500; i ++ ) {
+
+				var mesh = new THREE.Mesh( geometry, material );
+				mesh.position.x = ( Math.random() - 0.5 ) * 1000;
+				mesh.position.y = ( Math.random() - 0.5 ) * 1000;
+				mesh.position.z = ( Math.random() - 0.5 ) * 1000;
+				mesh.updateMatrix();
+				mesh.matrixAutoUpdate = false;
+				scene.add( mesh );
+				
+
+			}*/
+
+			// axis helper
+			var axisHelper = new THREE.AxisHelper( 50 );
+			scene.add( axisHelper );
+
+			// adding skybox
+			// view-source:http://stemkoski.github.io/Three.js/Skybox.html
+			var imagePrefix = "images/dawnmountain-";
+			var directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
+			var imageSuffix = ".png";
+			var skyGeometry = new THREE.CubeGeometry( 5000, 5000, 5000 );	
+			
+			var materialArray = [];
+			for (var i = 0; i < 6; i++)
+				materialArray.push( new THREE.MeshBasicMaterial({
+					map: THREE.ImageUtils.loadTexture( imagePrefix + directions[i] + imageSuffix ),
+					side: THREE.BackSide
+				}));
+			var skyMaterial = new THREE.MeshFaceMaterial( materialArray );
+			var skyBox = new THREE.Mesh( skyGeometry, skyMaterial );
+			scene.add( skyBox );
 			
 			//-------------lights -------------
 			/*light = new THREE.DirectionalLight( 0xffffff );
@@ -137,7 +178,7 @@
 			
 			//renderer
 			renderer = new THREE.WebGLRenderer( { antialias: false } ); // antialias default is true so could skip the code
-			renderer.setClearColor( scene.fog.color ); //scene.fog.color sets far away objects to black, can also be a color
+			//renderer.setClearColor( scene.fog.color ); //scene.fog.color sets far away objects to black, can also be a color
 			renderer.setPixelRatio( window.devicePixelRatio );
 			renderer.setSize( window.innerWidth, window.innerHeight );
 			//document.body.appendChild( renderer.domElement );
@@ -196,8 +237,8 @@
 			// Infinite plane
 			console.log("hej");
 			ground.position.x = position.x;
-			ground.position.z = position.z;
-			//ground.position.y = position.y -2;
+			ground.position.z = position.z - 5;
+			ground.position.y = position.y;
 			// Note that the plane is created with (x,y)-coordinates, but we want to change (x,z) position 
 			// since the plane is rotated pi/2. 
 			//planeTex.offset.set(position.x / w * planeTex.repeat.x, position.z / h * planeTex.repeat.y);
