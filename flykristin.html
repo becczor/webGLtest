@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+    <head>
+        <title>Flykristin.html</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <style>
+            body {
+            color: #ff0000;
+            font-family:Monospace;
+            font-size:13px;
+            text-align:center;
+            font-weight: bold;
+
+            background-color: #fff;
+            margin: 0px;
+            overflow: hidden;
+            }
+
+            #info {
+            color:#000000;
+            position: absolute;
+            top: 0px; width: 100%;
+            padding: 5px;
+            }
+
+            a {
+            color: blue;
+            }
+        </style>
+    </head>
+    <body> 
+        <div id="viewport"></div>
+        <div id="info">
+        <a href="http://threejs.org" target="_blank">three.js</a> - Fly controls example
+        </div>
+        <script src="js/three.min.js"></script>
+        <script src="js/FlyControls2.js"></script>
+        <script src="js/Detector.js"></script>
+        <script src="js/stats.min.js"></script> <!--library-->
+
+        <script>
+            //test if webGL is supported
+            if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+            //-----Variables-----//
+            var light;
+            //DOM element to attach the renderer to
+            var viewport;
+            //controls
+            var  controls;
+            //viewport size
+            var viewportWidth = 800;
+            var viewportHeight = 600;
+            //camera attributes
+            var view_angle = 45,
+                aspect = viewportWidth / viewportHeight,
+                near = 0.1,//near clip-plane
+                far = 10000;//far clip-plane
+            //-----Constructors-----//
+            var renderer = new THREE.WebGLRenderer( {antialias: true} );
+            var scene = new THREE.Scene();
+            var camera = new THREE.PerspectiveCamera( view_angle,
+                        aspect,
+                        near,
+                        far );
+            window.requestAnimFrame = (function(){
+                         return  window.requestAnimationFrame       || 
+                                 window.webkitRequestAnimationFrame || 
+                                 window.mozRequestAnimationFrame    || 
+                                 window.oRequestAnimationFrame      || 
+                                 window.msRequestAnimationFrame     || 
+                                 function( callback ){
+                                   window.setTimeout(callback, 1000 / 60);
+                                 };
+                       } ) ();
+
+            init();
+
+            function init()
+            {
+                //0xcccccc
+                scene.fog = new THREE.FogExp2( 0xff0000, 0.002 ); //sets start position in scene, defines exponential fog, ie. grows exponentially denser with the distance
+                renderer.setClearColor( 0xff0000); // scene.fog.color ); //scene.fog.color sets far away objects to black, can also be a color
+                renderer.setPixelRatio( window.devicePixelRatio );
+                renderer.setSize( window.innerWidth, window.innerHeight );
+
+                viewport = document.getElementById( 'viewport' );
+                viewport.appendChild( renderer.domElement );
+
+                // position and point the camera to the center of the scene
+                camera.position.set( 0, 0, 200 );
+                       
+                //create controls
+                controls = new THREE.FlyControls( camera );
+                //camera control properties
+                controls.movementSpeed = 0.6;
+                controls.domElement = viewport;
+                controls.rollSpeed = 0.01;
+                controls.autoForward = false;
+                controls.dragToLook = false;
+                 
+                //add camera to the scene
+                scene.add(camera);
+
+                //world
+                var geometry = new THREE.BoxGeometry( 10, 10, 10 );
+                var material = new THREE.MeshBasicMaterial( { color: 0xf0f0f0 } );
+
+                for ( var i = 0; i < 500; i ++ ) 
+                {
+                    var mesh = new THREE.Mesh( geometry, material );
+                    mesh.position.x = ( Math.random() - 0.5 ) * 1000;
+                    mesh.position.y = ( Math.random() - 0.5 ) * 1000;
+                    mesh.position.z = ( Math.random() - 0.5 ) * 1000;
+                    mesh.updateMatrix();
+                    mesh.matrixAutoUpdate = false;
+                    scene.add( mesh );
+                }
+
+                //lights
+                light = new THREE.DirectionalLight( 0xffffff );
+                light.position.set( 1, 1, 1 );
+                scene.add( light );
+
+                light = new THREE.DirectionalLight( 0x002288 );
+                light.position.set( -1, -1, -1 );
+                scene.add( light );
+                light = new THREE.AmbientLight( 0x222222 );
+                scene.add( light );
+                //calls function for resizing window if changed browser window size
+                window.addEventListener( 'resize', onWindowResize, false );
+                update();
+
+            }
+
+
+            function update()
+            {
+                //requests the browser to call update at it's own pace
+                requestAnimFrame( update );
+                //update controls
+                controls.update(1);
+                //call render
+                render();
+            }
+
+            function onWindowResize() 
+            {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+
+                renderer.setSize( window.innerWidth, window.innerHeight );
+
+                controls.handleResize();
+
+                render();
+            }
+
+            function render() 
+            {
+                renderer.render(scene, camera);
+            }
+
+        </script>
+    </body>
+</html>
