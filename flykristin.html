@@ -34,7 +34,7 @@
         <a href="http://threejs.org" target="_blank">three.js</a> - Fly controls example
         </div>
         <script src="js/three.min.js"></script>
-        <script src="js/FlyControls2.js"></script>
+        <script src="js/FlyControls.js"></script>
         <script src="js/Detector.js"></script>
         <script src="js/stats.min.js"></script> <!--library-->
 
@@ -56,21 +56,23 @@
                 near = 0.1,//near clip-plane
                 far = 10000;//far clip-plane
             //-----Constructors-----//
-            var renderer = new THREE.WebGLRenderer( {antialias: true} );
+            var renderer = new THREE.WebGLRenderer();
             var scene = new THREE.Scene();
             var camera = new THREE.PerspectiveCamera( view_angle,
                         aspect,
                         near,
                         far );
-            window.requestAnimFrame = (function(){
-                         return  window.requestAnimationFrame       || 
-                                 window.webkitRequestAnimationFrame || 
-                                 window.mozRequestAnimationFrame    || 
-                                 window.oRequestAnimationFrame      || 
-                                 window.msRequestAnimationFrame     || 
-                                 function( callback ){
-                                   window.setTimeout(callback, 1000 / 60);
-                                 };
+            window.requestAnimFrame = (function()
+            {
+                 return  window.requestAnimationFrame       || 
+                         window.webkitRequestAnimationFrame || 
+                         window.mozRequestAnimationFrame    || 
+                         window.oRequestAnimationFrame      || 
+                         window.msRequestAnimationFrame     || 
+                         function( callback )
+                         {
+                           window.setTimeout(callback, 1000 / 60);
+                         };
                        } ) ();
 
             init();
