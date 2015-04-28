@@ -397,9 +397,22 @@
 
 				}
 				
+				updatePosition(camera.position);
 				renderer.render( scene, camera );
 
 			}
+
+			function updatePosition(position) 
+			{
+				// Infinite plane
+				console.log("hej");
+				plane.position.x = position.x;
+				plane.position.z = position.z;
+				//plane.position.y = position.y;
+				// Note that the plane is created with (x,y)-coordinates, but we want to change (x,z) position 
+				// since the plane is rotated pi/2. 
+				//planeTex.offset.set(position.x / w * planeTex.repeat.x, position.z / h * planeTex.repeat.y);
+			};
 
 		</script>
 	</body>
