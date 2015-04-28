@@ -278,7 +278,7 @@
 				//floor
 				var planeGeometry = new THREE.PlaneGeometry(40, 40);
 		        //var planeMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff, specular: 0xffffff, shininess: 20 });
-		        var plane = new THREE.Mesh(planeGeometry, materialREB);
+		        var plane = new THREE.Mesh(planeGeometry, planeMat);
 		        plane.rotation.x = -0.5 * Math.PI;
 				
 		        plane.receiveShadow  = true;
