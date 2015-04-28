@@ -272,11 +272,13 @@
 				planeTex.repeat.set( 4, 4 );
 				var planeMat = new THREE.MeshBasicMaterial( { map: planeTex } );
 				planeMat.side = THREE.DoubleSide;
+
+				var materialREB = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide}  );
 				
 				//floor
 				var planeGeometry = new THREE.PlaneGeometry(40, 40);
-		        var planeMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff, specular: 0xffffff, shininess: 20 });
-		        var plane = new THREE.Mesh(planeGeometry, planeMat);
+		        //var planeMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff, specular: 0xffffff, shininess: 20 });
+		        var plane = new THREE.Mesh(planeGeometry, materialREB);
 		        plane.rotation.x = -0.5 * Math.PI;
 				
 		        plane.receiveShadow  = true;
