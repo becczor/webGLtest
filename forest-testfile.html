@@ -287,7 +287,7 @@
 				// set repeating image all over the object
 				planeTex.wrapS = planeTex.wrapT = THREE.RepeatWrapping;
 				// set how small the image should be, how many times it should repeat
-				planeTex.repeat.set( 4, 4 );
+				planeTex.repeat.set( 10, 10 );
 				// create a material with our texture to add on the object
 				var planeMat = new THREE.MeshBasicMaterial( { map: planeTex } );
 				// make sure the texture is applied to both sides
@@ -467,6 +467,23 @@
 				// Note that the plane is created with (x,y)-coordinates, but we want to change (x,z) position 
 				// since the plane is rotated pi/2. 
 				//planeTex.offset.set(position.x / w * planeTex.repeat.x, position.z / h * planeTex.repeat.y);
+
+				// Blocks camera to not go outside skybox
+	     		if ( camera.position.x > 250 || camera.position.y > 250 || camera.position.z > 250)
+				{
+					camera.position.x = 0;
+					camera.position.y = 0;
+					camera.position.z = 0;
+				}
+
+				if ( camera.position.x < -250 || camera.position.y < -250 || camera.position.z < -250)
+				{
+					camera.position.x = 0;
+					camera.position.y = 0;
+					camera.position.z = 0;
+				}
+
+
 			};
 
 		</script>
