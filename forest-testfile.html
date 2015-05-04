@@ -476,8 +476,9 @@
 				//planeTex.offset.set(position.x / w * planeTex.repeat.x, position.z / h * planeTex.repeat.y);
 
 				// Blocks camera to not go outside skybox
-	     		if ( camera.position.x > 250 || camera.position.z > 250 || camera.position.x < -250 || camera.position.z < -250)
+	     		if ( hoppla.x > 250 || hoppla.z > 250 || hoppla.x < -250 || hoppla.z < -250)
 				{
+					console.log("FAN VAD NAJS");
 					camera.position.x = 0;
 					camera.position.z = 0;
 				}
