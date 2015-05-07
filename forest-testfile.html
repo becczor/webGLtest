@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Grund forest-bump</title>
+		<title>forest-testfile</title>
 		<style>
 			html, body {
 				width: 100%;
@@ -234,7 +234,7 @@
 							break;
 
 						case 32: // space
-							if ( canJump === true ) velocity.y += 350;
+							if ( canJump === true ) velocity.y += 150;
 							canJump = false;
 							break;
 
@@ -294,7 +294,37 @@
 				planeMat.side = THREE.DoubleSide;
 
 				//floor
-				var planeGeometry = new THREE.PlaneGeometry(w, h);
+
+				// ***** KOD FRÅN BUMP PLANE ******
+
+				renderer.shadowMapEnabled = true;
+            	renderer.shadowMapSoft = true;
+            	renderer.shadowMapBias = 0.0009;
+
+				var geometry = new THREE.PlaneGeometry( 100, 100, 20, 20);
+
+				for(var i = 0; i < geometry.vertices.length; i++) 
+				{
+	                geometry.vertices[i].z = Math.random() * 4;
+	            }
+
+		        var material = new THREE.MeshLambertMaterial(
+		        {
+	            	color:0x939393,
+	            	shading: THREE.FlatShading
+		        } );
+
+		        material.side = THREE.DoubleSide;
+
+	            bumpplane = new THREE.Mesh(geometry, material);
+
+	            bumpplane.rotation.x = 90 * (Math.PI / 180);
+	            //mesh.position.y = 10;
+				
+				scene.add(bumpplane);
+
+
+				/*var planeGeometry = new THREE.PlaneGeometry(w, h);
 				// color material for testing without texture
 		        var planeMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff, specular: 0xffffff, shininess: 20 });
 		        plane = new THREE.Mesh(planeGeometry, planeMat);
@@ -303,7 +333,7 @@
 		        plane.receiveShadow  = true;
 		        plane.position.x = 1;
 		        plane.position.z = 3;
-		        scene.add(plane);
+		        scene.add(plane);*/
 
 		        // ------ SKYBOX --------
 				// code from http://stemkoski.github.io/Three.js/Skybox.html

@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Bump3.html, http://www.willdonohoe.com/experiments/low-poly-terrain/shading.html</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <script src="js/modernizr.js"></script>
+    </head>
+    <body>
+
+        <canvas id="canvas" width="100%" height="100%"></canvas>
+
+
+
+        <script src="js/jquery.min.js"></script>
+        <script src="js/three.min.js"></script>
+        <script src="js/stats.min.js"></script>
+
+        <script src="js/OrbitControls.js"></script>
+
+        <script>
+            $(document).ready(function() {
+                var app = new App();
+                app.init();
+            });
+
+            var App = function() {}
+
+            App.prototype = function() {
+                var scene, camera, renderer, controls, items = [], stats,
+
+                    init = function() {
+
+                       stats = new Stats();
+                        stats.setMode( 0 );
+                        document.body.appendChild( stats.domElement );
+
+                        stats.domElement.style.position = "absolute";
+                        stats.domElement.style.top = "0px";
+                        stats.domElement.style.left = "0px";
+
+                        scene = new THREE.Scene();
+
+                        camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
+                        camera.position.z = 40;
+                        camera.position.y = 15;
+
+                        renderer = new THREE.WebGLRenderer({
+                            canvas: document.getElementById('canvas')
+                        });
+
+                        renderer.shadowMapEnabled = true;
+                        renderer.shadowMapSoft = true;
+
+                        renderer.shadowMapBias = 0.0009;
+
+                        renderer.setSize( window.innerWidth, window.innerHeight );
+                        renderer.setClearColor( 0xffffff, 1);
+
+                        controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+                            // var reference = new Reference();
+                            // scene.add(reference.draw());
+
+                        var geometry = new THREE.PlaneGeometry(100, 100, 20, 20);
+
+                        for(var i = 0; i < geometry.vertices.length; i++) {
+                            geometry.vertices[i].z = Math.random() * 4;
+                        }
+
+                         var material = new THREE.MeshLambertMaterial({
+                              color:0x939393,
+                              shading: THREE.FlatShading
+                        });
+
+                        material.side = THREE.DoubleSide;
+
+                        mesh = new THREE.Mesh(geometry, material);
+
+                        mesh.rotation.x = 90 * (Math.PI / 180);
+                        mesh.position.y = 10;
+
+
+                        scene.add(mesh);
+
+                        var ambience = new THREE.AmbientLight( 0x404040 ); // soft white light
+                        scene.add(ambience);
+
+                        var spotLight = new THREE.SpotLight(0xffffff, 5);
+
+                        spotLight.position.set(50, 10, 10);
+                        //spotLight.position.multiplyScalar(1.5);
+
+                        scene.add(spotLight);
+
+                        this.update();
+
+
+                    },
+
+                    update = function() {
+                        requestAnimationFrame(this.update.bind(this));
+
+                        controls.update();
+                        stats.update();
+
+                        this.render();
+                    },
+
+                    render = function() {
+
+
+                        renderer.render(scene, camera);
+                    };
+
+                return {
+                    init: init,
+                    update: update,
+                    render: render
+                }
+
+            }();
+
+        </script>
+
+    </body>
+</html>

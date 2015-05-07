@@ -1,0 +1,138 @@
+<html>
+	<head>
+		<title>Bump.html</title>
+		<style>
+			body { margin: 0; }
+			canvas { width: 100%; height: 100% }
+		</style>
+	</head>
+	<body>
+
+		<script src="three.min.js"></script>
+		<script>
+
+			// Kopia av test2, men med bump-kod från bump3.html
+			// -------- GITHUB VERSION---------
+			var render = function () {
+				requestAnimationFrame( render );
+
+				//ground.rotation.x += 0.01;
+				//mesh.rotation.z += 0.005;
+
+				renderer.render(scene, camera);
+				//console.log("hej")
+			};
+
+			var scene = new THREE.Scene();
+			var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 1, 1000 );
+
+            camera.position.z = 40;
+            camera.position.y = 15;
+
+			var renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			// change background color of renderer
+			//renderer.setClearColor( 0xffffff, 1);
+			document.body.appendChild( renderer.domElement );
+
+			// BEHÖVER KOD FRÅN simplex.noise2D
+			/********
+			var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.9);
+			directionalLight.position.set(10, 2, 20);
+			directionalLight.castShadow = true;
+			directionalLight.shadowCameraVisible = true;
+
+			scene.add( directionalLight );
+
+			var segments = 20;
+
+			
+			var geometry = new THREE.PlaneGeometry(20, 20, segments, segments);
+
+			var index = 0;
+			for(var i=0; i < segments + 1; i++) {
+			    for(var j=0; j < segments + 1; j++) {
+
+			        zOffset = simplex.noise2D(i * xNoiseScale, j * yNoiseScale) * 5;
+			        geometry.vertices[index].z = zOffset;
+
+			        index++;
+			    }
+			}
+
+			var material = new THREE.MeshLambertMaterial({
+			    side: THREE.DoubleSide,
+			    color: 0xf50066
+			});
+
+			var plane = new THREE.Mesh(geometry, material);
+			plane.rotation.x = -Math.PI / 2.35;
+			plane.castShadow = true;
+			plane.receiveShadow = true;
+			scene.add(plane);
+			***********/
+
+			/*var planeTex = THREE.ImageUtils.loadTexture("textures/sara.jpg");
+			planeTex.wrapS = planeTex.wrapT = THREE.RepeatWrapping;
+			planeTex.repeat.set( 4, 4 );
+			var planeMat = new THREE.MeshBasicMaterial( { map: planeTex } );
+			planeMat.side = THREE.DoubleSide;
+
+			*/
+
+			renderer.shadowMapEnabled = true;
+            renderer.shadowMapSoft = true;
+            renderer.shadowMapBias = 0.0009;
+
+			var geometry = new THREE.PlaneGeometry( 100, 100, 20, 20);
+
+			for(var i = 0; i < geometry.vertices.length; i++) 
+			{
+                geometry.vertices[i].z = Math.random() * 4;
+            }
+
+	        var material = new THREE.MeshLambertMaterial(
+	        {
+            	color:0x939393,
+            	shading: THREE.FlatShading
+	        } );
+
+	        material.side = THREE.DoubleSide;
+
+            mesh = new THREE.Mesh(geometry, material);
+
+            mesh.rotation.x = 90 * (Math.PI / 180);
+            //mesh.position.y = 10;
+			
+			scene.add(mesh);
+
+			var ambience = new THREE.AmbientLight( 0x404040 ); // soft white light
+            scene.add(ambience);
+
+            var spotLight = new THREE.SpotLight(0xffffff, 5);
+
+            spotLight.position.set(50, 10, 10);
+            //spotLight.position.multiplyScalar(1.5);
+
+            scene.add(spotLight);
+
+			// CHANGE MATERIAL TO PLANEMAT WHEN PUSHING TO GITHUB
+			//ground = new THREE.Mesh( geometry, material );
+
+			//ground.position.set( 0, -10, 0 );
+			//ground.rotation.x = Math.PI/2;
+			//ground.scale.set( 10, 10, 10 );
+			//scene.add( ground );
+
+			//ground.rotation.x += 3.14159/2;
+
+			//camera.position.z = 20;
+			//camera.position.y = 5;
+
+
+			render();
+		</script>
+	</body>
+</html>
+
+
