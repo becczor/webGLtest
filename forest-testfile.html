@@ -282,7 +282,7 @@
 				// --- PLANE AND TEXTURE ------
  				var w = 40, h = 40;
 
-				// load texture file
+				/*// load texture file
 				var planeTex = THREE.ImageUtils.loadTexture("textures/sara.jpg");
 				// set repeating image all over the object
 				planeTex.wrapS = planeTex.wrapT = THREE.RepeatWrapping;
@@ -292,14 +292,10 @@
 				var planeMat = new THREE.MeshBasicMaterial( { map: planeTex } );
 				// make sure the texture is applied to both sides
 				planeMat.side = THREE.DoubleSide;
-
+				*/
 				//floor
 
 				// ***** KOD FRÅN BUMP PLANE ******
-
-				renderer.shadowMapEnabled = true;
-            	renderer.shadowMapSoft = true;
-            	renderer.shadowMapBias = 0.0009;
 
 				var geometry = new THREE.PlaneGeometry( 100, 100, 20, 20);
 
@@ -310,7 +306,7 @@
 
 		        var material = new THREE.MeshLambertMaterial(
 		        {
-	            	color:0x939393,
+	            	color:0xBEC2D1, // light gray/blue
 	            	shading: THREE.FlatShading
 		        } );
 
@@ -322,6 +318,12 @@
 	            //mesh.position.y = 10;
 				
 				scene.add(bumpplane);
+				bumpplane.receiveShadow = true;
+				bumpplane.castShadow = true;
+
+				// temporary light 
+				var ambience = new THREE.AmbientLight( 0x404040 ); // soft white light
+            	scene.add(ambience);
 
 
 				/*var planeGeometry = new THREE.PlaneGeometry(w, h);
@@ -401,6 +403,11 @@
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
 				document.body.appendChild( renderer.domElement );
+
+				// ----- Kod från Bump ----
+				renderer.shadowMapEnabled = true;
+            	renderer.shadowMapSoft = true;
+            	renderer.shadowMapBias = 0.0009;
 				
 				//------ Initialize the stats ------//
 				stats = new Stats();
