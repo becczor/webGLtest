@@ -6,13 +6,13 @@
     
         <style>
             body {
-            color: #ff0000;
+            color: #000000;
             font-family:Monospace;
             font-size:13px;
             text-align:center;
             font-weight: bold;
 
-            background-color: #fff;
+            background-color: #ffffff;
             margin: 0px;
             overflow: hidden;
             }
@@ -81,7 +81,7 @@
             function init()
             {
                 //0xcccccc
-                scene.fog = new THREE.FogExp2( 0xfff, 0.002 ); //sets start position in scene, defines exponential fog, ie. grows exponentially denser with the distance
+                scene.fog = new THREE.FogExp2( 0xffffff, 0.002 ); //sets start position in scene, defines exponential fog, ie. grows exponentially denser with the distance
                 renderer.setClearColor( scene.fog.color ); //scene.fog.color sets far away objects to black, can also be a color
                 renderer.setPixelRatio( window.devicePixelRatio );
                 renderer.setSize( window.innerWidth, window.innerHeight );
@@ -106,7 +106,7 @@
 
                 //world
                 var geometry = new THREE.BoxGeometry( 10, 10, 10 );
-                var material = new THREE.MeshBasicMaterial( { color: 0xf0f0f0 } );
+                var material = new THREE.MeshBasicMaterial( { color: 0x006400 } );
 
                 for ( var i = 0; i < 500; i ++ ) 
                 {
